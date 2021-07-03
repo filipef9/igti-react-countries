@@ -1,13 +1,26 @@
 import { useState } from 'react';
+
 import Header from '../components/Header';
 import Main from '../components/Main';
 import TextInput from '../components/TextInput';
+
+import { countries } from '../data/countries.js';
+
+const MIN_CHARACTERS = 3;
 
 const ReactCountriesPage = () => {
   const [countryFilter, setCountryFilter] = useState('Brazil');
   const handleChangeCountryFilter = newCountry => {
     setCountryFilter(newCountry);
   };
+
+  const filteredCountries =
+    countryFilter.length >= MIN_CHARACTERS
+      ? countries.filter(({ nameInLowercase }) =>
+          nameInLowercase.includes(countryFilter.toLocaleLowerCase())
+        )
+      : countries;
+  console.log(filteredCountries);
 
   return (
     <>
