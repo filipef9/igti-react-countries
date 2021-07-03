@@ -3,19 +3,20 @@ import { useState } from 'react';
 import Header from '../components/Header';
 import Main from '../components/Main';
 import TextInput from '../components/TextInput';
+import Countries from '../components/Countries';
 
 import { countries } from '../data/countries.js';
 
 const MIN_CHARACTERS = 3;
 
 const ReactCountriesPage = () => {
-  const [countryFilter, setCountryFilter] = useState('Brazil');
+  const [countryFilter, setCountryFilter] = useState('');
   const handleChangeCountryFilter = newCountry => {
     setCountryFilter(newCountry);
   };
 
   const filteredCountries =
-    countryFilter.length >= MIN_CHARACTERS
+    countryFilter.trim().length >= MIN_CHARACTERS
       ? countries.filter(({ nameInLowercase }) =>
           nameInLowercase.includes(countryFilter.toLocaleLowerCase())
         )
@@ -32,6 +33,8 @@ const ReactCountriesPage = () => {
           value={countryFilter}
           handleOnChange={handleChangeCountryFilter}
         />
+
+        <Countries>{filteredCountries}</Countries>
       </Main>
     </>
   );
